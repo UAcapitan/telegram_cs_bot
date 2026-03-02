@@ -1,0 +1,1 @@
+{"root":["./src/App.tsx","./src/main.tsx","./src/vite-env.d.ts","./src/components/CasePage.tsx","./src/components/HeaderBar.tsx","./src/components/ProgressDots.tsx","./src/components/ResultPanel.tsx","./src/components/Roulette.tsx","./src/lib/storage.ts","./src/lib/tg.ts","./src/lib/tracking.ts"],"version":"5.9.3"}

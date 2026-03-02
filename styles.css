@@ -1,0 +1,306 @@
+:root {
+  --bg-0: #080c12;
+  --bg-1: #0d131c;
+  --card: rgba(15, 22, 32, 0.78);
+  --line: rgba(255, 255, 255, 0.1);
+  --text: #e9eef7;
+  --muted: #9eb0c9;
+  --gold: #f0b042;
+  --cyan: #4fd9ff;
+  --red: #ff6175;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  font-family: "Space Grotesk", sans-serif;
+  color: var(--text);
+  background: radial-gradient(circle at 10% -10%, #1f2e47 0%, transparent 35%),
+    radial-gradient(circle at 120% 30%, #3f2413 0%, transparent 40%),
+    linear-gradient(180deg, var(--bg-1), var(--bg-0));
+}
+
+body {
+  overflow-x: hidden;
+  padding:
+    max(12px, env(safe-area-inset-top))
+    0
+    max(12px, env(safe-area-inset-bottom));
+}
+
+#fx-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.app-shell {
+  position: relative;
+  z-index: 1;
+  width: min(980px, 100% - 24px);
+  margin: 18px auto 32px;
+  padding-bottom: 20px;
+}
+
+.topbar,
+.hero,
+.case-card,
+.roulette {
+  border: 1px solid var(--line);
+  border-radius: 18px;
+}
+
+.glass {
+  background: var(--card);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  margin-bottom: 12px;
+  animation: rise 440ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brand-mark {
+  width: 36px;
+  height: 36px;
+  border-radius: 9px;
+  background: conic-gradient(from 220deg, #ffcc67, #ff774d, #ffcc67);
+  box-shadow: 0 0 24px #d2802b80;
+}
+
+.kicker {
+  margin: 0;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-family: "Rajdhani", sans-serif;
+  letter-spacing: 0.02em;
+}
+
+h1 {
+  font-size: 26px;
+  line-height: 0.96;
+}
+
+h2 {
+  font-size: clamp(30px, 8vw, 44px);
+  line-height: 0.9;
+}
+
+.balance-pill {
+  border: 1px solid #ffe4a042;
+  background: linear-gradient(135deg, #4a3215, #21170c);
+  color: #ffd782;
+  border-radius: 999px;
+  padding: 10px 14px;
+  font-weight: 700;
+}
+
+.hero {
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 16px;
+  align-items: end;
+  animation: rise 520ms 70ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.muted {
+  color: var(--muted);
+  margin: 8px 0 0;
+  max-width: 40ch;
+}
+
+.cta {
+  min-width: 128px;
+  border: 0;
+  border-radius: 12px;
+  padding: 12px 16px;
+  font: 700 16px "Rajdhani", sans-serif;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #151003;
+  background: linear-gradient(135deg, #ffdb8b, #f0b042);
+  box-shadow: 0 12px 30px -14px #f0b042;
+  transform: translateZ(0);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.cta:active {
+  transform: scale(0.98);
+}
+
+.cases {
+  margin-top: 12px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.case-card {
+  padding: 14px;
+  position: relative;
+  overflow: hidden;
+  animation: rise 520ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.case-card:nth-child(1) {
+  animation-delay: 130ms;
+}
+
+.case-card:nth-child(2) {
+  animation-delay: 190ms;
+}
+
+.case-card:nth-child(3) {
+  animation-delay: 250ms;
+}
+
+.case-card::after {
+  content: "";
+  position: absolute;
+  inset: -30% -10% auto;
+  height: 100%;
+  filter: blur(22px);
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.case-card[data-accent="gold"]::after {
+  background: radial-gradient(circle, var(--gold), transparent 70%);
+}
+
+.case-card[data-accent="cyan"]::after {
+  background: radial-gradient(circle, var(--cyan), transparent 70%);
+}
+
+.case-card[data-accent="red"]::after {
+  background: radial-gradient(circle, var(--red), transparent 70%);
+}
+
+.case-tier {
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-size: 10px;
+  color: var(--muted);
+}
+
+.price {
+  margin: 6px 0 0;
+  font-weight: 700;
+  color: #f6d798;
+}
+
+.roulette {
+  margin-top: 12px;
+  padding: 14px;
+  position: relative;
+  overflow: hidden;
+  animation: rise 560ms 300ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.roulette-track {
+  display: flex;
+  gap: 10px;
+  will-change: transform;
+}
+
+.drop-item {
+  flex: 0 0 120px;
+  border: 1px solid #ffffff24;
+  border-radius: 12px;
+  padding: 12px 10px;
+  background: linear-gradient(160deg, #182432, #111a25);
+}
+
+.drop-tier {
+  margin: 0;
+  font-size: 10px;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.drop-name {
+  margin: 4px 0 0;
+  font-family: "Rajdhani", sans-serif;
+  font-size: 22px;
+}
+
+.roulette-marker {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(180deg, transparent, #ffd77f, transparent);
+  transform: translateX(-1px);
+}
+
+@media (max-width: 820px) {
+  .hero {
+    grid-template-columns: 1fr;
+  }
+
+  .cta {
+    width: 100%;
+  }
+
+  .cases {
+    grid-template-columns: 1fr;
+  }
+
+  .drop-item {
+    flex-basis: 112px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .topbar,
+  .hero,
+  .case-card,
+  .roulette,
+  .cta {
+    animation: none;
+    transition: none;
+  }
+}
+
+@keyframes rise {
+  from {
+    transform: translate3d(0, 12px, 0);
+    opacity: 0;
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+}
