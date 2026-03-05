@@ -59,26 +59,10 @@ async function sendStartMessage(chatId: number): Promise<void> {
   }
 }
 
-function getHeaderValue(header: string | string[] | undefined): string {
-  if (Array.isArray(header)) {
-    return header[0] ?? '';
-  }
-  return header ?? '';
-}
-
 export default async function handler(req: VercelLikeRequest, res: VercelLikeResponse): Promise<void> {
   if (req.method !== 'POST') {
     res.status(405).json({ ok: false, error: 'Method Not Allowed' });
     return;
-  }
-
-  const webhookSecret = process.env.WEBHOOK_SECRET;
-  if (webhookSecret) {
-    const headerSecret = getHeaderValue(req.headers['x-telegram-bot-api-secret-token']);
-    if (headerSecret !== webhookSecret) {
-      res.status(401).json({ ok: false, error: 'Unauthorized' });
-      return;
-    }
   }
 
   const update = req.body as TelegramUpdate;
