@@ -4,7 +4,7 @@ import { ResultPanel } from './ResultPanel';
 import { Roulette, type SkinItem } from './Roulette';
 import { initTelegram, getTelegramUser, openExternalLink, triggerWinHaptic } from '../lib/tg';
 import { buildFinalRedirectUrl, getIncomingParams } from '../lib/tracking';
-import { loadState, resetState, saveState } from '../lib/storage';
+import { loadState, saveState } from '../lib/storage';
 
 const ITEMS: SkinItem[] = [
   {
@@ -48,6 +48,14 @@ const ITEMS: SkinItem[] = [
     rarity: 'gray',
     rarityLabel: 'Consumer Grade',
     image: new URL('../../images/PP-Bizon_Bizoom_gray.webp', import.meta.url).href,
+  },
+  {
+    id: 'knife-nomad-gold',
+    name: '★ Nomad Knife | Marble Fade',
+    rarity: 'gold',
+    rarityLabel: 'Rare Special Item',
+    image: new URL('../../images/Nomad_Marble_Fade_gold.png', import.meta.url).href,
+    isKnife: true,
   },
   {
     id: 'ak-rouge',
@@ -104,7 +112,6 @@ export function CasePage() {
   const [spinToken, setSpinToken] = useState(0);
   const [targetItemId, setTargetItemId] = useState<string | null>(null);
   const [isSpinning, setIsSpinning] = useState(false);
-  const [showDevReset, setShowDevReset] = useState(false);
 
   const tg = useMemo(() => initTelegram(), []);
   const user = useMemo(() => getTelegramUser(tg), [tg]);
@@ -113,7 +120,7 @@ export function CasePage() {
   const firstName = user?.first_name || 'there';
   const tgId = user?.id;
 
-  const redirectBase = import.meta.env.VITE_REDIRECT_BASE || 'https://hellca.se/kiqisun';
+  const redirectBase = 'https://hellca.se/kiqisun/';
   const lastWonItem = lastWonItemId ? ITEMS.find((item) => item.id === lastWonItemId) ?? null : null;
 
   const persist = (next: { spinCount: number; lastWonItemId: string | null; hasWon: boolean }) => {
@@ -157,16 +164,6 @@ export function CasePage() {
     openExternalLink(tg, finalUrl);
   };
 
-  const handleReset = () => {
-    setSpinCount(0);
-    setHasWon(false);
-    setLastWonItemId(null);
-    setTargetItemId(null);
-    setSpinToken(0);
-    setIsSpinning(false);
-    resetState();
-  };
-
   return (
     <main className="page-wrap">
       <div className="bg-noise" aria-hidden="true" />
@@ -203,19 +200,6 @@ export function CasePage() {
       </div>
 
       {!hasWon && <ResultPanel hasWon={hasWon} item={lastWonItem} />}
-
-      {import.meta.env.DEV && (
-        <div className="dev-tools">
-          <button className="tiny-toggle" type="button" onClick={() => setShowDevReset((prev) => !prev)}>
-            dev
-          </button>
-          {showDevReset && (
-            <button className="tiny-reset" type="button" onClick={handleReset}>
-              Reset state
-            </button>
-          )}
-        </div>
-      )}
     </main>
   );
 }

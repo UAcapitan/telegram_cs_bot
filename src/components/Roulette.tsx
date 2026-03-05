@@ -121,14 +121,15 @@ export function Roulette({ items, targetItemId, spinToken, onSpinStart, onSpinEn
 
     const currentCenter = -xRef.current + center;
     const approxIndex = currentCenter / pitch - 0.5;
-    const extraCycles = Math.floor(Math.random() * 3) + 2;
+    // Keep apparent speed close to the original by shortening both distance and duration ~25%.
+    const extraCycles = Math.random() < 0.75 ? 2 : 3;
     const cycleStart = Math.ceil(approxIndex / items.length) * items.length + items.length * extraCycles;
     const targetIndex = cycleStart + targetItemIndex;
 
     const targetCardHitPoint = targetIndex * pitch + cardWidth * STOP_HIT_RATIO;
     const toX = center - targetCardHitPoint;
     const fromX = xRef.current;
-    const duration = (3400 + Math.floor(Math.random() * 1400)) * 3;
+    const duration = (3400 + Math.floor(Math.random() * 1400)) * 2.25;
     lastProcessedSpinTokenRef.current = spinToken;
     const isKnifeFinish = targetItemId === 'knife-win';
 

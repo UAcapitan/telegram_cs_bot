@@ -132,7 +132,7 @@ body {
     inset 0 1px 0 #ffffff14,
     0 14px 30px -24px rgba(0, 0, 0, 0.85),
     0 7px 14px -10px rgba(6, 10, 17, 0.75);
-  overflow: hidden;
+  overflow: visible;
 }
 
 .roulette-item::before {
@@ -148,10 +148,12 @@ body {
 
 .roulette-media {
   position: relative;
-  height: 86px;
-  margin-bottom: 8px;
+  height: 92px;
+  margin-bottom: 10px;
   display: grid;
   place-items: center;
+  overflow: visible;
+  isolation: isolate;
 }
 
 .roulette-media::after {
@@ -159,12 +161,13 @@ body {
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 70%;
-  height: 48%;
-  transform: translate(-50%, -44%);
+  width: 62%;
+  height: 44%;
+  transform: translate(-50%, -36%);
   border-radius: 0;
   background: radial-gradient(circle, var(--roulette-accent) 0%, transparent 72%);
-  opacity: 0.28;
+  opacity: 0.16;
+  z-index: 0;
   pointer-events: none;
 }
 
@@ -462,9 +465,9 @@ body {
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 82%;
-  height: 60%;
-  transform: translate(-50%, -46%);
+  width: 90%;
+  height: 72%;
+  transform: translate(-50%, -38%);
   border-radius: 0;
   background: radial-gradient(circle, var(--result-accent) 0%, transparent 72%);
   opacity: 0.24;

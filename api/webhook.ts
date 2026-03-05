@@ -1,4 +1,5 @@
 type RequestHeaders = Record<string, string | string[] | undefined>;
+declare const process: { env: Record<string, string | undefined> };
 
 type VercelLikeRequest = {
   method?: string;
