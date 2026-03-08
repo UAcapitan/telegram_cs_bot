@@ -103,6 +103,7 @@ const ITEMS: SkinItem[] = [
 ];
 
 const SCRIPTED_OUTCOMES = ['trash-a', 'nova-rust', 'knife-win'];
+const REFERRAL_URL = import.meta.env.VITE_REFERRAL_URL;
 
 export function CasePage() {
   const persisted = useMemo(() => loadState(), []);
@@ -120,7 +121,6 @@ export function CasePage() {
   const firstName = user?.first_name || 'there';
   const tgId = user?.id;
 
-  const redirectBase = 'https://hellca.se/kiqisun/';
   const lastWonItem = lastWonItemId ? ITEMS.find((item) => item.id === lastWonItemId) ?? null : null;
 
   const persist = (next: { spinCount: number; lastWonItemId: string | null; hasWon: boolean }) => {
@@ -156,8 +156,12 @@ export function CasePage() {
   };
 
   const handleActivateBonus = () => {
+    if (!REFERRAL_URL) {
+      throw new Error('VITE_REFERRAL_URL is not set');
+    }
+
     const finalUrl = buildFinalRedirectUrl({
-      base: redirectBase,
+      base: REFERRAL_URL,
       incoming: incomingParams,
       tgId,
     });

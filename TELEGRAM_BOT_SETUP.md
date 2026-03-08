@@ -5,6 +5,7 @@ Set these in `Project -> Settings -> Environment Variables`:
 
 - `BOT_TOKEN` = your Telegram bot token
 - `WEBAPP_URL` = your Mini App URL (for this project it is `https://<PROJECT>.vercel.app`)
+- `VITE_REFERRAL_URL` = referral URL opened by the `Activate Bonus` button
 - `WEBHOOK_SECRET` = long random secret (recommended)
 
 ## 2) Deploy
