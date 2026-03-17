@@ -49,7 +49,7 @@ async function sendStartMessage(chatId: number): Promise<void> {
       chat_id: chatId,
       text: startMessage,
       reply_markup: {
-        inline_keyboard: [[{ text: 'Open Cases', web_app: { url: webAppUrl } }]],
+        inline_keyboard: [[{ text: process.env.BUTTON_TEXT ?? 'Open Cases', web_app: { url: webAppUrl } }]],
       },
     }),
   });
